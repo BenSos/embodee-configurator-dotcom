@@ -27,9 +27,15 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '20'
+        cache: 'npm'
         
-    - name: Verify Node.js version
+    - name: Install Node.js 20 explicitly
       run: |
+        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+        export NVM_DIR="$HOME/.nvm"
+        [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+        nvm install 20
+        nvm use 20
         node --version
         npm --version
         
@@ -37,7 +43,9 @@ jobs:
       run: |
         cd modern-configurator
         rm -rf node_modules package-lock.json
-        npm install --ignore-scripts
+        npm config set ignore-scripts true
+        npm install
+        npm config set ignore-scripts false
         
     - name: Build
       run: |
