@@ -1,0 +1,233 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="referrer" content="origin" />
+    <title>Embodee Configurator Sandbox</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Embodee Platform" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background-color: #f7fafc; /* Lighter gray */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        main {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem; /* Space between columns */
+            width: 100%;
+            max-width: 1600px; /* Max width for large screens */
+            padding: 2rem;
+        }
+        /* Config panel on the left */
+        #root {
+            flex: 0 0 350px; /* Don't grow, don't shrink, base width 350px */
+            height: 800px;
+            background-color: #ffffff;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            overflow: hidden;
+        }
+
+        /* 3D Viewer in the center */
+        #embodee-configurator {
+            flex-shrink: 1;
+            flex-grow: 1;
+            max-width: 800px;
+            width: 100%;
+            height: 800px;
+            position: relative;
+            background-color: #e2e8f0;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            /* Use flexbox to center the injected viewer element and the loader */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden; /* Prevent viewer overflow */
+        }
+
+        /* Pulsing background for viewer loading */
+        #embodee-configurator::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-color: #e2e8f0;
+            border-radius: 0.5rem;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            z-index: 5;
+            pointer-events: none;
+        }
+        
+        main.is-loading #embodee-configurator::before {
+            opacity: 1;
+            pointer-events: auto;
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        @keyframes pulse {
+            50% {
+                opacity: .7;
+            }
+        }
+        
+        /* Spinner container */
+        #viewer-loader {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 6; /* Position above the pulsing background */
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        main.is-loading #viewer-loader {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Info panel on the right */
+        .info-panel {
+            flex: 0 0 350px; /* Same width as the config panel */
+            height: 800px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 2rem;
+            color: #4a5568;
+        }
+
+        /* Reposition the Embodee viewer control icon */
+        #embodee-configurator svg {
+            position: absolute !important; /* Use !important to override potential inline styles from the script */
+            bottom: 20px !important;
+            left: 20px !important;
+            z-index: 10 !important;
+            cursor: pointer !important;
+        }
+        
+        /* --- Responsive Styles --- */
+        @media (max-width: 1280px) {
+            body {
+                height: auto;
+                align-items: flex-start;
+            }
+            main {
+                flex-direction: column;
+                padding: 1rem;
+                gap: 1.5rem;
+            }
+            #root, .info-panel {
+                flex-basis: auto;
+                width: 100%;
+                max-width: 700px;
+                height: auto;
+            }
+            #embodee-configurator {
+                width: 100%;
+                max-width: 700px;
+                height: auto;
+                aspect-ratio: 1 / 1;
+            }
+            .info-panel {
+                text-align: center;
+                padding: 1rem 1.5rem 2rem; /* top left/right bottom */
+            }
+        }
+
+        @media (max-width: 767px) {
+             main {
+                padding: 0;
+                gap: 0;
+            }
+            #root {
+                border-radius: 0;
+                box-shadow: none;
+                max-width: 100%;
+                border-bottom: 1px solid #e2e8f0;
+            }
+            #embodee-configurator {
+                border-radius: 0;
+                box-shadow: none;
+                max-width: 100%;
+            }
+             .info-panel {
+                padding: 2rem 1.5rem;
+            }
+        }
+
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.1.1/",
+    "react": "https://aistudiocdn.com/react@^19.1.1",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.1.1/",
+    "react-dom": "https://aistudiocdn.com/react-dom@^19.1.1"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+
+<body>
+    <main class="is-loading">
+        <!-- The React app will be mounted here (options panel on the left) -->
+        <div id="root"></div>
+        
+        <!-- The Embodee 3D viewer will be mounted here (center) -->
+        <div id="embodee-configurator">
+            <!-- Loader with spinner -->
+            <div id="viewer-loader">
+                <svg class="animate-spin h-12 w-12 text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Informational panel on the right -->
+        <div class="info-panel">
+            <h2 class="text-3xl font-bold text-gray-800 mb-4">Integrate Anywhere</h2>
+            <p class="text-lg text-gray-600">
+                Seamlessly embed this powerful 3D configurator into your existing website, e-commerce platform, or custom application.
+            </p>
+            <p class="mt-4 text-base text-gray-500">
+                Provide your customers with an immersive and interactive product customization experience that drives engagement and boosts sales. Our API-first approach ensures flexible and robust integrations.
+            </p>
+            <button id="show-data-btn" disabled class="mt-8 w-full bg-indigo-600 text-white font-semibold py-3 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed">
+                View Product Data
+            </button>
+        </div>
+
+    </main>
+    
+    <!-- Portal for React modals -->
+    <div id="modal-portal"></div>
+    
+    <!-- The Embodee loader script is placed here to ensure the DOM is ready before it executes -->
+    <script src="https://embodee.app/__/configurator/loader.js"></script>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>

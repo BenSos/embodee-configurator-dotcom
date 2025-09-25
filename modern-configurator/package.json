@@ -1,0 +1,113 @@
+{
+  "name": "modern-configurator",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "dev:host": "vite --host",
+    "build": "cross-env NODE_ENV=production vite build",
+    "build:dev": "cross-env NODE_ENV=development vite build",
+    "build:analyze": "cross-env NODE_ENV=production vite build --mode analyze",
+    "preview": "vite preview",
+    "serve": "vite preview --port 3000",
+    "serve:iframe": "vite preview --port 3001 --open iframe-test.html",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "lint:fix": "eslint src --ext ts,tsx --fix",
+    "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,md}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,json,css,md}\"",
+    "type-check": "tsc --noEmit",
+    "type-check:build": "tsc --project tsconfig.build.json",
+    "clean": "rmdir /s /q dist 2>nul || echo 'No dist folder to clean'",
+    "prebuild": "npm run clean && npm run type-check",
+    "postbuild": "npm run type-check:build",
+    "validate": "npm run type-check && npm run lint && npm run test:run",
+    "prepare": "npm run validate",
+    "dev-setup": "node scripts/dev-setup.js",
+    "build:pipeline": "node scripts/build-pipeline.js",
+    "build:pipeline:dev": "node scripts/build-pipeline.js development",
+    "quality-check": "node scripts/quality-check.js"
+  },
+  "dependencies": {
+    "clsx": "^2.0.0",
+    "lucide-react": "^0.294.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-error-boundary": "^4.0.11"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^14.4.3",
+    "@types/node": "^20.10.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@typescript-eslint/eslint-plugin": "^6.14.0",
+    "@typescript-eslint/parser": "^6.14.0",
+    "@vitejs/plugin-react": "^4.0.0",
+    "autoprefixer": "^10.4.0",
+    "chalk": "^4.1.2",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.55.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-jsx-a11y": "^6.8.0",
+    "eslint-plugin-prettier": "^5.1.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "jsdom": "^27.0.0",
+    "postcss": "^8.4.0",
+    "prettier": "^3.1.0",
+    "tailwindcss": "^3.3.0",
+    "typescript": "^5.0.0",
+    "vite": "^4.4.0",
+    "vite-plugin-checker": "^0.6.0",
+    "vite-plugin-eslint": "^1.8.1",
+    "vitest": "^0.34.0"
+  },
+  "keywords": [
+    "embodee",
+    "configurator",
+    "3d",
+    "product",
+    "customization",
+    "react",
+    "typescript",
+    "vite",
+    "tailwind",
+    "iframe",
+    "webgl"
+  ],
+  "author": {
+    "name": "Embodee",
+    "email": "support@embodee.com",
+    "url": "https://embodee.com"
+  },
+  "license": "MIT",
+  "description": "Modern product configurator using Embodee Product Viewer API",
+  "homepage": "https://embodee.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/embodee/modern-configurator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/embodee/modern-configurator/issues"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11"
+  ],
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ]
+}

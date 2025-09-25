@@ -1,0 +1,260 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Test to verify CSS is being processed */
+.test-css-processing {
+  background-color: red !important;
+  color: white !important;
+  padding: 20px !important;
+  font-size: 24px !important;
+}
+
+/* Basic CSS test - this should work regardless of Tailwind */
+.basic-css-test {
+  background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  font-weight: bold;
+  text-align: center;
+  margin: 10px 0;
+}
+
+@layer base {
+  html {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+  }
+  
+  body {
+    @apply bg-gray-50 text-gray-900;
+  }
+  
+  * {
+    @apply border-gray-200;
+  }
+}
+
+@layer components {
+  /* Button Components */
+  .btn {
+    @apply px-4 py-2 rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  
+  .btn-primary {
+    @apply bg-primary-600 text-white hover:bg-primary-700 focus:ring-primary-500 active:bg-primary-800;
+  }
+  
+  .btn-secondary {
+    @apply bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-gray-500 active:bg-gray-400;
+  }
+  
+  .btn-outline {
+    @apply border border-primary-600 text-primary-600 hover:bg-primary-50 focus:ring-primary-500 active:bg-primary-100;
+  }
+  
+  .btn-sm {
+    @apply px-3 py-1.5 text-sm;
+  }
+  
+  .btn-lg {
+    @apply px-6 py-3 text-lg;
+  }
+  
+  /* Card Components */
+  .card {
+    @apply bg-white rounded-xl shadow-soft border border-gray-200 p-6;
+  }
+  
+  .card-hover {
+    @apply card hover:shadow-medium transition-shadow duration-200;
+  }
+  
+  .card-interactive {
+    @apply card-hover cursor-pointer hover:border-primary-200;
+  }
+  
+  /* Form Components */
+  .input {
+    @apply w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200;
+  }
+  
+  .input-error {
+    @apply border-red-300 focus:ring-red-500 focus:border-red-500;
+  }
+  
+  .label {
+    @apply block text-sm font-medium text-gray-700 mb-1;
+  }
+  
+  .label-required::after {
+    content: ' *';
+    @apply text-red-500;
+  }
+  
+  /* Configurator Specific Components */
+  .configurator-panel {
+    @apply bg-white rounded-xl shadow-soft border border-gray-200 p-4 max-h-screen overflow-y-auto;
+  }
+  
+  .option-group {
+    @apply mb-6 last:mb-0;
+  }
+  
+  .option-group-title {
+    @apply text-lg font-semibold text-gray-900 mb-3;
+  }
+  
+  .option-value {
+    @apply flex items-center justify-center w-12 h-12 rounded-lg border-2 border-gray-200 cursor-pointer transition-all duration-200 hover:border-primary-300 hover:shadow-sm;
+  }
+  
+  .option-value-selected {
+    @apply border-primary-500 bg-primary-50 ring-2 ring-primary-200;
+  }
+  
+  .color-swatch {
+    @apply w-8 h-8 rounded-full border-2 border-gray-200 cursor-pointer transition-all duration-200 hover:scale-110 hover:shadow-md;
+  }
+  
+  .color-swatch-selected {
+    @apply ring-2 ring-primary-500 ring-offset-2;
+  }
+  
+  /* 3D Viewer Components */
+  .viewer-container {
+    @apply relative bg-gray-100 rounded-xl overflow-hidden;
+  }
+  
+  .viewer-loading {
+    @apply absolute inset-0 bg-gray-100 flex items-center justify-center;
+  }
+  
+  .viewer-error {
+    @apply absolute inset-0 bg-red-50 flex items-center justify-center text-red-600;
+  }
+  
+  /* Loading Components */
+  .spinner {
+    @apply animate-spin rounded-full border-2 border-gray-300 border-t-primary-600;
+  }
+  
+  .spinner-sm {
+    @apply w-4 h-4;
+  }
+  
+  .spinner-md {
+    @apply w-8 h-8;
+  }
+  
+  .spinner-lg {
+    @apply w-12 h-12;
+  }
+  
+  /* Skeleton Loading */
+  .skeleton {
+    @apply animate-pulse bg-gray-200 rounded;
+  }
+  
+  .skeleton-text {
+    @apply skeleton h-4 w-full;
+  }
+  
+  .skeleton-title {
+    @apply skeleton h-6 w-3/4;
+  }
+  
+  .skeleton-button {
+    @apply skeleton h-10 w-24;
+  }
+  
+  /* Text Customization */
+  .text-input {
+    @apply input resize-none;
+  }
+  
+  .font-selector {
+    @apply grid grid-cols-2 gap-2;
+  }
+  
+  .font-option {
+    @apply p-3 rounded-lg border border-gray-200 cursor-pointer hover:border-primary-300 transition-colors duration-200;
+  }
+  
+  .font-option-selected {
+    @apply border-primary-500 bg-primary-50;
+  }
+  
+  /* Graphics Upload */
+  .upload-area {
+    @apply border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-primary-400 transition-colors duration-200;
+  }
+  
+  .upload-area-dragover {
+    @apply border-primary-500 bg-primary-50;
+  }
+  
+  /* Responsive Utilities */
+  .mobile-only {
+    @apply block md:hidden;
+  }
+  
+  .desktop-only {
+    @apply hidden md:block;
+  }
+  
+  /* Animation Utilities */
+  .fade-in {
+    @apply animate-fade-in;
+  }
+  
+  .slide-up {
+    @apply animate-slide-up;
+  }
+  
+  /* Iframe Optimization */
+  .iframe-container {
+    @apply w-full h-full min-h-screen;
+  }
+  
+  .iframe-content {
+    @apply w-full h-full overflow-hidden;
+  }
+}
+
+@layer utilities {
+  /* Custom scrollbar */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(156 163 175) transparent;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: rgb(156 163 175);
+    border-radius: 3px;
+  }
+  
+  /* Touch-friendly sizing for mobile */
+  .touch-target {
+    @apply min-h-[44px] min-w-[44px];
+  }
+  
+  /* Safe area handling for mobile */
+  .safe-top {
+    padding-top: env(safe-area-inset-top);
+  }
+  
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}

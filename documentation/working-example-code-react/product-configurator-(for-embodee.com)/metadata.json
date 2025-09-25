@@ -1,0 +1,5 @@
+{
+  "name": "Product Configurator (For embodee.com)",
+  "description": "An interactive 3D product configurator built using React and the Embodee API, allowing users to customize product options like fabrics and colors in real-time.",
+  "requestFramePermissions": []
+}
