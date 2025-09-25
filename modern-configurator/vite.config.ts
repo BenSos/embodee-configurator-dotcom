@@ -15,7 +15,7 @@ export default defineConfig({
     headers: {
       // Security headers for iframe embedding
       'X-Frame-Options': 'SAMEORIGIN',
-      'Content-Security-Policy': "frame-ancestors 'self' https://embodee.com https://*.embodee.com",
+      'Content-Security-Policy': "default-src 'self'; font-src 'self' https://r2cdn.perplexity.ai; frame-ancestors 'self' https://embodee.com https://*.embodee.com",
       'X-Content-Type-Options': 'nosniff',
       'Referrer-Policy': 'strict-origin-when-cross-origin'
     }
