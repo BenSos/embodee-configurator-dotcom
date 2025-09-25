@@ -1,8 +1,8 @@
 // Embodee API service for fetching product data and configuration
 // Handles API calls to Embodee endpoints with error handling and retry logic
 
-import { URLParams, EmbodeeProductData, EmbodeeApiResponse, EmbodeeError } from '../types';
-import { logger, logApiCall, logApiResponse, logApiError } from './logger';
+import { URLParams, EmbodeeProductData, EmbodeeApiResponse } from '../types';
+import { logger, logApiCall, logApiResponse } from './logger';
 
 /**
  * Custom API error class for better error handling
@@ -84,7 +84,7 @@ export class EmbodeeApiService {
           response.status,
           data
         );
-        logApiError(apiError, 'getProductData');
+        logger.error('API', 'getProductData error', { error: apiError.message }, 'getProductData');
         throw apiError;
       }
 
@@ -110,7 +110,7 @@ export class EmbodeeApiService {
         0,
         error
       );
-      logApiError(apiError, 'getProductData');
+      logger.error('API', 'getProductData error', { error: apiError.message }, 'getProductData');
       throw apiError;
     }
   }
@@ -244,7 +244,7 @@ export class EmbodeeApiService {
         logger.warn('API', `Request failed (attempt ${attempt}/${this.config.maxRetries})`, { 
           url, 
           error: lastError.message,
-          errorType: error.constructor.name
+          errorType: (error as any).constructor?.name || 'Unknown'
         }, 'fetchWithRetry');
         
         // Don't retry on certain errors
@@ -293,16 +293,16 @@ export class EmbodeeApiService {
    * @param data - Response data to validate
    * @returns True if valid, false otherwise
    */
-  private isValidApiResponse(data: any): data is EmbodeeApiResponse<any> {
-    return (
-      data &&
-      typeof data === 'object' &&
-      typeof data.status === 'string' &&
-      typeof data.errorcode === 'number' &&
-      typeof data.message === 'string' &&
-      'result' in data
-    );
-  }
+  // private _isValidApiResponse(data: any): data is EmbodeeApiResponse<any> {
+  //   return (
+  //     data &&
+  //     typeof data === 'object' &&
+  //     typeof data.status === 'string' &&
+  //     typeof data.errorcode === 'number' &&
+  //     typeof data.message === 'string' &&
+  //     'result' in data
+  //   );
+  // }
 
   /**
    * Updates API configuration

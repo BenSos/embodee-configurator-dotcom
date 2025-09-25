@@ -294,7 +294,7 @@ export const useEmbodee = (): UseEmbodeeReturn => {
   /**
    * Initialize the 3D viewer with the given parameters
    */
-  const initializeViewer = async (urlParams: URLParams, data: EmbodeeProductData): Promise<EmbodeeConfigurator> => {
+  const initializeViewer = async (urlParams: URLParams, _data: EmbodeeProductData): Promise<EmbodeeConfigurator> => {
     const viewerConfig = await (window as any).EmbodeeLoader.init({
       containerID: 'embodee-configurator',
       workspaceID: urlParams.workspaceID,
@@ -329,7 +329,7 @@ export const useEmbodee = (): UseEmbodeeReturn => {
         logger.info('CONFIGURATOR', 'Product ready - UI structure parsed successfully', {
           optionsCount: parsedOptions.length,
           selectionsCount: Object.keys(parsedSelections).length,
-          optionTypes: parsedOptions.map(opt => opt.type)
+          optionTypes: parsedOptions.map(opt => (opt as any).type || 'unknown')
         }, 'useEmbodee');
       } catch (err) {
         logConfiguratorError(err, 'Product ready handler');

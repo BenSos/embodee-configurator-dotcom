@@ -1,6 +1,5 @@
-import React from 'react';
 import { ConfiguratorWrapper } from './components';
-import { useEmbodee } from './hooks';
+import { useEmbodee } from './hooks/useEmbodee';
 
 function App() {
   const { isLoading, error, isInitialized } = useEmbodee();

@@ -18,7 +18,7 @@ interface ConfiguratorWrapperProps {
 export const ConfiguratorWrapper: React.FC<ConfiguratorWrapperProps> = ({
   children,
   className = '',
-  showRetryButton = true,
+  showRetryButton: _showRetryButton = true,
   onError
 }) => {
   const {

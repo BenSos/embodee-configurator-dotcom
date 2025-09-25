@@ -24,7 +24,7 @@ export const LoadingOverlay: React.FC<LoadingOverlayProps> = ({
       {children}
       {isLoading && (
         <div className={`absolute inset-0 bg-white bg-opacity-75 flex items-center justify-center z-50 ${overlayClassName}`}>
-          <LoadingSpinner size="lg" message={message} />
+          <LoadingSpinner size="lg" message={message || ''} />
         </div>
       )}
     </div>

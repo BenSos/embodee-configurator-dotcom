@@ -63,7 +63,7 @@ export class Logger {
       category,
       message,
       data,
-      context
+      ...(context && { context })
     };
   }
 

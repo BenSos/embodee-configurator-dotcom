@@ -2,7 +2,7 @@
 // Handles parsing of workspaceID, productID, variant, designID and other parameters
 
 import { URLParams } from '../types';
-import { applyFallbacksToParams, getFallbackConfig } from './fallbackConfig';
+import { applyFallbacksToParams } from './fallbackConfig';
 import { logger } from './logger';
 
 /**

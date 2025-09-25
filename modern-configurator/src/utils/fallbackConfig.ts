@@ -101,7 +101,7 @@ export class FallbackConfigManager {
           logger.debug('FALLBACK', 'Applied localStorage defaults', { config: parsed }, 'FallbackConfigManager');
         }
       } catch (error) {
-        logger.warn('FALLBACK', 'Failed to parse localStorage config', { error: error.message }, 'FallbackConfigManager');
+        logger.warn('FALLBACK', 'Failed to parse localStorage config', { error: (error as Error).message }, 'FallbackConfigManager');
       }
     }
 
@@ -147,7 +147,7 @@ export class FallbackConfigManager {
         localStorage.setItem('embodee-fallback-config', JSON.stringify(this.config));
         logger.debug('FALLBACK', 'Configuration saved to localStorage', {}, 'FallbackConfigManager');
       } catch (error) {
-        logger.warn('FALLBACK', 'Failed to save to localStorage', { error: error.message }, 'FallbackConfigManager');
+        logger.warn('FALLBACK', 'Failed to save to localStorage', { error: (error as Error).message }, 'FallbackConfigManager');
       }
     }
   }

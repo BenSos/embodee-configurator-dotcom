@@ -5,7 +5,8 @@
     "declaration": true,
     "declarationMap": true,
     "outDir": "./dist/types",
-    "rootDir": "./src"
+    "rootDir": "./src",
+    "allowImportingTsExtensions": false
   },
   "include": [
     "src/**/*"
