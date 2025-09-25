@@ -18,6 +18,8 @@
     "**/*.test.tsx",
     "**/*.spec.ts",
     "**/*.spec.tsx",
+    "**/test/**",
+    "**/tests/**",
     "vite.config.ts",
     "vite.config.prod.ts"
   ]
