@@ -6,7 +6,7 @@
   'use strict';
   
   // Configuration
-  const EMBODEE_SCRIPT_URL = 'https://embodee.app/embodee-loader.js';
+  const EMBODEE_SCRIPT_URL = 'https://embodee.app/__/configurator/loader.js';
   const LOAD_TIMEOUT = 30000; // 30 seconds
   const RETRY_ATTEMPTS = 3;
   const RETRY_DELAY = 2000; // 2 seconds

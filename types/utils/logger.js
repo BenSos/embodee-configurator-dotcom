@@ -24,10 +24,14 @@ export class Logger {
             writable: true,
             value: []
         });
+        // Browser-safe environment check
+        const isDevelopment = typeof process !== 'undefined'
+            ? process.env['NODE_ENV'] === 'development'
+            : window.location.hostname === 'localhost' || window.location.hostname.includes('dev');
         this.config = {
-            level: process.env['NODE_ENV'] === 'development' ? LogLevel.DEBUG : LogLevel.WARN,
+            level: isDevelopment ? LogLevel.DEBUG : LogLevel.WARN,
             enableConsole: true,
-            enableStorage: process.env['NODE_ENV'] === 'development',
+            enableStorage: isDevelopment,
             maxStorageEntries: 1000,
             categories: ['API', 'CONFIGURATOR', 'ERROR', 'DEBUG'],
             ...config
