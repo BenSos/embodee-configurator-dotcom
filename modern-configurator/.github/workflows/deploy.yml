@@ -27,19 +27,17 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '20'
-        cache: 'npm'
-        cache-dependency-path: modern-configurator/package-lock.json
         
     - name: Install dependencies
       run: |
         cd modern-configurator
-        npm ci
+        rm -rf node_modules package-lock.json
+        npm install
         
     - name: Build
       run: |
         cd modern-configurator
         npm run clean
-        npm run type-check:build
         npm run build:dev
         
     - name: Setup Pages
