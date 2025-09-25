@@ -27,31 +27,19 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '20'
-        cache: 'npm'
-        
-    - name: Install Node.js 20 explicitly
-      run: |
-        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
-        export NVM_DIR="$HOME/.nvm"
-        [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-        nvm install 20
-        nvm use 20
-        node --version
-        npm --version
+        cache: 'yarn'
         
     - name: Install dependencies
       run: |
         cd modern-configurator
-        rm -rf node_modules package-lock.json
-        npm config set ignore-scripts true
-        npm install
-        npm config set ignore-scripts false
+        rm -rf node_modules yarn.lock
+        yarn install --ignore-scripts
         
     - name: Build
       run: |
         cd modern-configurator
-        npm run clean
-        npm run build:dev
+        yarn clean
+        yarn build:dev
         
     - name: Setup Pages
       uses: actions/configure-pages@v4
