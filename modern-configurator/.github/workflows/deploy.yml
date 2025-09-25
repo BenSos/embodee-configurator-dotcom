@@ -28,11 +28,16 @@ jobs:
       with:
         node-version: '20'
         
+    - name: Verify Node.js version
+      run: |
+        node --version
+        npm --version
+        
     - name: Install dependencies
       run: |
         cd modern-configurator
         rm -rf node_modules package-lock.json
-        npm install
+        npm install --ignore-scripts
         
     - name: Build
       run: |
